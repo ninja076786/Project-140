@@ -3,7 +3,7 @@
 
 var paddle2 =10,paddle1=10;
 
-var paddle1X = 10,paddle1Height = 60000000000000;
+var paddle1X = 10,paddle1Height = 100;
 var paddle2Y = 685,paddle2Height = 70;
 
 var score1 = 0, score2 =0;
@@ -17,15 +17,16 @@ var ball = {
     x:350/2,
     y:480/2,
     r:20,
-    dx:1000,
-    dy:10
+    dx:10,
+    dy:5
 }
 
 function setup(){
   var canvas =  createCanvas(700,600);
   canvas.center();
-  video=createCapture(VIDEO);
-  video.center();
+  video = createCapture(VIDEO);
+  video.size(700, 600);
+  video.hide();
   poseNet = ml5.poseNet(video, modelLoaded);
 }
 
@@ -33,10 +34,15 @@ function modelLoaded() {
   console.log('Model Loaded!');
   }
 
-
+function k(){
+  paddle1Height=paddle1Height+10
+}
+function o(){
+  paddle1Height=paddle1Height-10
+}
 function draw(){
-
- background(0); 
+  background(0); 
+  image(video, 0, 0, 700, 600); 
 
  fill("black");
  stroke("black");
@@ -56,7 +62,8 @@ function draw(){
    paddle1Y = mouseY; 
    rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
    
-   
+     
+     
     //pc computer paddle
     fill("#FFA500");
     stroke("#FFA500");
@@ -81,8 +88,8 @@ function draw(){
 function reset(){
    ball.x = width/10+100,
    ball.y = height/10+100;
-   ball.dx=1000;
-   ball.dy =10;
+   ball.dx=10;
+   ball.dy =5;
    
 }
 
@@ -148,7 +155,7 @@ if(pcscore ==100000000000000000000000000000000000000000000000){
        ball.dy =- ball.dy;
    }   
 }
-
+ 
 
 //width height of canvas speed of ball 
 function models(){
